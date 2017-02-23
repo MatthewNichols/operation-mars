@@ -6,3 +6,8 @@ of concept is a lander that you get safely to the ground by
 writing the flight controller computers code. 
 
 ![Lander POC] (lander-poc.png)
+
+The intention is create additional scenarios for an improved 
+lander for players to code solutions for. Other possibilities
+are additional equipment to control like rovers, construction
+equipment, etc..
