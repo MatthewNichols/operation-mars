@@ -7,6 +7,8 @@ var gulp = require('gulp');
 var ts = require('gulp-typescript');
 //var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
+var newer = require('gulp-newer');
+
 
 const fallingShipTsFiles = "Scripts/PageScripts/FallingShip/*.ts";
 const cssDir = 'input/assets/css';
@@ -21,6 +23,16 @@ gulp.task('compileTypescript', () => {
 		}))
 		.pipe(sourcemaps.write("."))
 		.pipe(gulp.dest("."));
+});
+
+gulp.task('updateDocArea', () => {
+	gulp.src("Scripts/PageScripts/site.js")
+		.pipe(gulp.dest("../../docs/Scripts/PageScripts"));
+
+	const contentDest = "../../docs/Content";
+	gulp.src("Content/**/*.*")
+		.pipe(newer(contentDest))
+		.pipe(gulp.dest(contentDest));
 });
 
 // gulp.task('compileSass', () => {
