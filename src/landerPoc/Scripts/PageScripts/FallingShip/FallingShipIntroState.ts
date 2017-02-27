@@ -32,7 +32,8 @@ export class GameIntroState extends Phaser.State {
         introTitle.anchor.set(0.5);
 
         var introText = this.game.add.text(this.game.world.centerX, this.game.world.centerY,
-            `Land the spacecraft by writing the code that controls the decent.`, { font: '30px Arial', fill: '#ff0044', align: 'center' });
+            `Land the spacecraft by writing the code that controls the decent.`,
+            { font: '30px Arial', fill: '#ff0044', align: 'center', wordWrap: true, wordWrapWidth: this.game.world.width - 100 });
         introText.anchor.set(0.5);
 
         $('#start').click(() => this.game.state.start("RunningState", true, false));

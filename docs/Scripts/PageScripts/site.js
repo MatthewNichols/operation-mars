@@ -1,8 +1,13 @@
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 /// <reference path="../../typings/requirejs/require.d.ts" />
 var FallingShipAppConfig;
 (function (FallingShipAppConfig) {
@@ -24,6 +29,7 @@ var FallingShipAppConfig;
 /// <reference path="../../typings/jquery/jquery.d.ts" />
 define("FallingShipIntroState", ["require", "exports"], function (require, exports) {
     "use strict";
+    exports.__esModule = true;
     var GameIntroState = (function (_super) {
         __extends(GameIntroState, _super);
         function GameIntroState() {
@@ -44,7 +50,7 @@ define("FallingShipIntroState", ["require", "exports"], function (require, expor
             //console.log("Intro create");
             var introTitle = this.game.add.text(this.game.world.centerX, this.game.world.centerY - 100, "Lander Proof of Concept", { font: '50px Arial', fill: '#ff0044', align: 'center' });
             introTitle.anchor.set(0.5);
-            var introText = this.game.add.text(this.game.world.centerX, this.game.world.centerY, "Land the spacecraft by writing the code that controls the decent.", { font: '30px Arial', fill: '#ff0044', align: 'center' });
+            var introText = this.game.add.text(this.game.world.centerX, this.game.world.centerY, "Land the spacecraft by writing the code that controls the decent.", { font: '30px Arial', fill: '#ff0044', align: 'center', wordWrap: true, wordWrapWidth: this.game.world.width - 100 });
             introText.anchor.set(0.5);
             $('#start').click(function () { return _this.game.state.start("RunningState", true, false); });
         };
@@ -56,6 +62,7 @@ define("FallingShipIntroState", ["require", "exports"], function (require, expor
 });
 define("Ship", ["require", "exports"], function (require, exports) {
     "use strict";
+    exports.__esModule = true;
     var maxThrust = 300;
     var Ship = (function () {
         function Ship(shipSprite, game) {
@@ -89,6 +96,7 @@ define("Ship", ["require", "exports"], function (require, exports) {
 });
 define("UserCode", ["require", "exports"], function (require, exports) {
     "use strict";
+    exports.__esModule = true;
     var UserCode = (function () {
         function UserCode(userCodeString) {
             this.prepUserCode(userCodeString);
@@ -117,6 +125,7 @@ define("UserCode", ["require", "exports"], function (require, exports) {
 /// <reference path="usercode.ts" />
 define("FallingShipRunningState", ["require", "exports", "UserCode", "Ship"], function (require, exports, uc, ship) {
     "use strict";
+    exports.__esModule = true;
     var maxSafeVelocity = 20;
     var maxThrust = 300;
     var colors = {
@@ -225,6 +234,7 @@ define("FallingShipRunningState", ["require", "exports", "UserCode", "Ship"], fu
 /// <reference path="../../typings/codemirror/codemirror.d.ts" />
 define("FallingShipApp", ["require", "exports", "FallingShipIntroState", "FallingShipRunningState"], function (require, exports, introState, runningState) {
     "use strict";
+    exports.__esModule = true;
     var FallingShipApp = (function () {
         function FallingShipApp() {
             this.game = new Phaser.Game("80%", 600, Phaser.AUTO, 'content');
