@@ -8,7 +8,7 @@ var ts = require('gulp-typescript');
 var less = require('gulp-less');
 var sourcemaps = require('gulp-sourcemaps');
 var newer = require('gulp-newer');
-//var minifyCSS  = require('gulp-minify-css');
+var LessPluginCleanCSS = require('less-plugin-clean-css')
 var cleanCSS  = require('gulp-clean-css');
 var rename     = require('gulp-rename');
 
@@ -48,14 +48,23 @@ gulp.task('compileLess', () => {
 
 });
 
-gulp.task('minifyCss', () => {
-    return gulp.src(`${cssDir}/Site.css`)
-        .pipe(sourcemaps.init())
-		.pipe(cleanCSS())
-		.pipe(rename({suffix: '.min'}))
-        .pipe(sourcemaps.write('.'))
+gulp.task('compileLessMinified', () => {
+	console.log("compile less min");
+
+	var cssCleanPlugin = new LessPluginCleanCSS();
+
+	return gulp.src(`${cssDir}/*.less`)
+		.pipe(sourcemaps.init())
+		.pipe(less({
+			plugins: [cssCleanPlugin]
+		}))
+        .pipe(rename({suffix: '.min'}))
+		.pipe(sourcemaps.write('.'))
 		.pipe(gulp.dest(cssDir));
-})
+
+});
+
+gulp.task('compileLessRegularAndMinified', ['compileLess', 'compileLessMinified'])
 
 gulp.task('default', () => {
 	gulp.watch(fallingShipTsFiles, ["compileTypescript"]);
