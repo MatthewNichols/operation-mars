@@ -68,5 +68,5 @@ gulp.task('compileLessRegularAndMinified', ['compileLess', 'compileLessMinified'
 
 gulp.task('default', () => {
 	gulp.watch(fallingShipTsFiles, ["compileTypescript"]);
-	//gulp.watch(`${cssDir}/*/*.scss`, ["compileSass"]);
+	gulp.watch(`${cssDir}/*/*.less`, ["compileLess"]);
 });
