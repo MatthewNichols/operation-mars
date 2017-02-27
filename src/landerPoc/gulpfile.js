@@ -5,13 +5,15 @@ Click here to learn more. https://go.microsoft.com/fwlink/?LinkId=518007
 
 var gulp = require('gulp');
 var ts = require('gulp-typescript');
-//var sass = require('gulp-sass');
+var less = require('gulp-less');
 var sourcemaps = require('gulp-sourcemaps');
 var newer = require('gulp-newer');
-
+//var minifyCSS  = require('gulp-minify-css');
+var cleanCSS  = require('gulp-clean-css');
+var rename     = require('gulp-rename');
 
 const fallingShipTsFiles = "Scripts/PageScripts/FallingShip/*.ts";
-const cssDir = 'input/assets/css';
+const cssDir = 'Content/';
 
 gulp.task('compileTypescript', () => {
 	console.log("compileTypescript");
@@ -35,16 +37,25 @@ gulp.task('updateDocArea', () => {
 		.pipe(gulp.dest(contentDest));
 });
 
-// gulp.task('compileSass', () => {
-// 	console.log("compile sass");
-//
-// 	return gulp.src(`${cssDir}/*.scss`)
-// 		.pipe(sourcemaps.init())
-// 		.pipe(sass().on("error", sass.logError))
-// 		.pipe(sourcemaps.write())
-// 		.pipe(gulp.dest(cssDir));
-//
-// });
+gulp.task('compileLess', () => {
+	console.log("compile less");
+
+	return gulp.src(`${cssDir}/*.less`)
+		.pipe(sourcemaps.init())
+		.pipe(less())
+		.pipe(sourcemaps.write('.'))
+		.pipe(gulp.dest(cssDir));
+
+});
+
+gulp.task('minifyCss', () => {
+    return gulp.src(`${cssDir}/Site.css`)
+        .pipe(sourcemaps.init())
+		.pipe(cleanCSS())
+		.pipe(rename({suffix: '.min'}))
+        .pipe(sourcemaps.write('.'))
+		.pipe(gulp.dest(cssDir));
+})
 
 gulp.task('default', () => {
 	gulp.watch(fallingShipTsFiles, ["compileTypescript"]);
